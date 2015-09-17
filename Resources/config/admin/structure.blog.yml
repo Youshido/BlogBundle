@@ -1,0 +1,135 @@
+modules:
+
+    blog:
+        title: Blog
+        icon: fa fa-book
+        security: ROLE_SUPER_ADMIN
+        type: Group
+
+
+    blog_post:
+        title: Posts
+        type: dictionary
+        icon: fa fa-file-text-o
+        group: blog
+        security: ROLE_SUPER_ADMIN
+        entity: Youshido\BlogBundle\Entity\Post
+        sort: [ updatedAt, desc ]
+        columns:
+            id:
+                type: integer
+            title:
+                type: text
+            picture:
+                required: false
+                type: image
+            published:
+                type: boolean
+                required: false
+            alias:
+                required: false
+                readonly: true
+                type: text
+            content:
+                required: false
+                type: wysiwyg
+            createdAt:
+                type: datetime
+            updatedAt:
+                title: Updated At
+                type: datetime
+            createdBy:
+                type: text
+            rating:
+                type: integer
+            tags:
+                type: entity
+                multiple: true
+                entity: Youshido\BlogBundle\Entity\Tag
+            authors:
+                type: entity
+                multiple: true
+                entity: Youshido\BlogBundle\Entity\Author
+        actions:
+            default:
+              show: [picture, published, title, updatedAt]
+            add:
+                hide: [id, updatedAt, createdBy, createdAt, rating]
+            edit:
+                hide: [id, updatedAt, createdBy, createdAt, rating]
+            remove: ~
+
+    blog_tag:
+        title: Tags
+        type: dictionary
+        icon: fa fa-tags
+        group: blog
+        security: ROLE_SUPER_ADMIN
+        entity: Youshido\BlogBundle\Entity\Tag
+        columns:
+            id:
+                type: integer
+            name:
+                type: text
+            alias:
+                readonly: true
+                type: text
+                required: false
+            createdAt:
+                title: Created At
+                type: datetime
+            updatedAt:
+                type: datetime
+            rating:
+                type: integer
+            posts:
+                type: entity
+                entity: Youshido\BlogBundle\Entity\Post
+        actions:
+            default:
+              show: [name, alias, createdAt]
+            add:
+                hide: [id, createdAt, updatedAt, posts, rating]
+            edit:
+                hide: [id, createdAt, updatedAt, posts, rating]
+            remove: ~
+
+    blog_author:
+        title: Authors
+        type: dictionary
+        group: blog
+        icon: fa fa-users
+        security: ROLE_SUPER_ADMIN
+        entity: Youshido\BlogBundle\Entity\Author
+        columns:
+            id:
+                type: integer
+            firstName:
+                type: text
+            lastName:
+                type: text
+                required: false
+            alias:
+                required: false
+                readonly: true
+                type: text
+            picture:
+                type: image
+                required: false
+            createdAt:
+                type: datetime
+            updatedAt:
+                type: datetime
+            rating:
+                type: integer
+            posts:
+                type: entity
+                entity: Youshido\BlogBundle\Entity\Post
+        actions:
+            default:
+              show: [picture, firstName, lastName]
+            add:
+                hide: [id, createdAt, updatedAt, posts, rating]
+            edit:
+                hide: [id, createdAt, updatedAt, posts, rating]
+            remove: ~
