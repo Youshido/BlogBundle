@@ -32,6 +32,7 @@ class Post
      * @var string
      *
      * @Gedmo\Versioned
+     * @Assert\NotBlank()
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -48,7 +49,7 @@ class Post
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
